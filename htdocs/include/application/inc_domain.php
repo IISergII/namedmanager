@@ -1793,7 +1793,7 @@ class domain_records extends domain
 
 					// nothing todo
 				}
-				} elseif ($data_tmp[$i]["name"] != "@" && !preg_match("/^[\\w\p{L}:._-]*$/ui", $data_tmp[$i]["name"])) {
+				elseif ($data_tmp[$i]["name"] != "@" && !preg_match("/^[\\w\p{L}:._-]*$/ui", $data_tmp[$i]["name"])) {
 				{
 					// all other record types
 					log_write("error", "process", "Sorry, the value you have entered for record ". $data_tmp[$i]["name"] ." contains invalid charactors");
@@ -1830,14 +1830,14 @@ class domain_records extends domain
 
 						case "CNAME":
 							// validate CNAME
-							if (filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_DOMAIN) == $data_tmp[$i]["content"])
 //							if ($data_tmp[$i]["content"] != "@" && !preg_match("/^[A-Za-z0-9\p{L}._-]*$/", $data_tmp[$i]["content"]))
-/*							{
+							if ($data_tmp[$i]["content"] != "@" && !preg_match("/^[\\w\p{L}._-]*$/", $data_tmp[$i]["content"]))
+							{
 								// invalid CNAME
 								log_write("error", "process", "CNAME record for ". $data_tmp[$i]["name"] ." contains invalid characters.");
 								error_flag_field("record_custom_". $i ."");
 							}
-*/							// make sure it's not an IP
+							// make sure it's not an IP
 							if (filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_IP) == $data_tmp[$i]["content"])
 							{
 								// CNAME is pointing at an IP
