@@ -1783,7 +1783,7 @@ class domain_records extends domain
 
 
 				// verify name syntax
-				if ($data_tmp[$i]["name"] == "*" || preg_match("/^\*\.[\\w\p{L}:._-]+$/ui", $data_tmp[$i]["name"])) {
+				if ($data_tmp[$i]["name"] == "*" || preg_match("/^\*\.[\\w\p{L}:._-]+$/ui", $data_tmp[$i]["name"]))
 				{
 					// wildcard records are annoying - wildcards must be standalone, and can't be part of a sring
 					// OK  -> *
@@ -1793,7 +1793,7 @@ class domain_records extends domain
 
 					// nothing todo
 				}
-				elseif ($data_tmp[$i]["name"] != "@" && !preg_match("/^[\\w\p{L}:._-]*$/ui", $data_tmp[$i]["name"])) {
+				elseif ($data_tmp[$i]["name"] != "@" && !preg_match("/^[\\w\p{L}:._-]*$/ui", $data_tmp[$i]["name"]))
 				{
 					// all other record types
 					log_write("error", "process", "Sorry, the value you have entered for record ". $data_tmp[$i]["name"] ." contains invalid charactors");
