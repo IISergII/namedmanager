@@ -1,19 +1,16 @@
 <?php
 /*
 	user/user-delete-process.php
-
 	access: admin
-
 	Deletes a user account
 */
 
 // includes
-include_once("../include/config.php");
-include_once("../include/amberphplib/main.php");
-include_once("../include/application/main.php");
+include_once "../include/config.php";
+include_once "../include/amberphplib/main.php";
+include_once "../include/application/main.php";
 
-
-if (user_permissions_get(namedadmins))
+if (user_permissions_get("namedadmins"))
 {
 	/////////////////////////
 
@@ -23,8 +20,7 @@ if (user_permissions_get(namedadmins))
 	$data["username"]		= security_form_input_predefined("any", "username", 0, "");
 
 	// confirm deletion
-	$data["delete_confirm"]		= security_form_input_predefined("any", "delete_confirm", 1, "You must confirm the deletion");
-
+	$data["delete_confirm"]	= security_form_input_predefined("any", "delete_confirm", 1, "You must confirm the deletion");
 
 	// only enabled when doing SQL authentication
 	if ($GLOBALS["config"]["AUTH_METHOD"] != "sql")
@@ -32,10 +28,8 @@ if (user_permissions_get(namedadmins))
 		log_write("error", "page", "User options can only be configured when using local user authentication");
 	}
 
-
-	
 	// make sure the user actually exists
-	$sql_obj		= New sql_query;
+	$sql_obj			= New sql_query;
 	$sql_obj->string	= "SELECT id FROM `users` WHERE id='$id' LIMIT 1";
 	$sql_obj->execute();
 	
@@ -44,10 +38,7 @@ if (user_permissions_get(namedadmins))
 		$_SESSION["error"]["message"][] = "The user you have attempted to edit - $id - does not exist in this system.";
 	}
 
-
-		
 	//// ERROR CHECKING ///////////////////////
-			
 
 	/// if there was an error, go back to the entry page
 	if ($_SESSION["error"]["message"])
@@ -62,14 +53,12 @@ if (user_permissions_get(namedadmins))
 		$sql_obj = New sql_query;
 		$sql_obj->trans_begin();
 
-
 		/*
 			Delete User
 		*/
 
 		$sql_obj->string = "DELETE FROM users WHERE id='$id' LIMIT 1";
 		$sql_obj->execute();
-
 
 		/*
 			Delete user permissions
@@ -78,16 +67,12 @@ if (user_permissions_get(namedadmins))
 		$sql_obj->string	= "DELETE FROM users_permissions WHERE userid='$id'";
 		$sql_obj->execute();
 
-
-
 		/*
 			Delete user options
 		*/
 				
 		$sql_obj->string	= "DELETE FROM users_options WHERE userid='$id'";
 		$sql_obj->execute();
-
-
 
 		// end transaction
 		if ($_SESSION["error"]["message"])
@@ -103,14 +88,13 @@ if (user_permissions_get(namedadmins))
 			$sql_obj->trans_commit();
 		}
 
-
 		// return to user list
 		header("Location: ../index.php?page=user/users.php");
 		exit(0);
 	}
 
 	/////////////////////////
-	
+
 }
 else
 {
@@ -119,6 +103,5 @@ else
 	header("Location: ../index.php?page=message.php");
 	exit(0);
 }
-
 
 ?>

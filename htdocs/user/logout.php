@@ -1,7 +1,6 @@
 <?php
 /*
 	user/logout.php
-
 	allows a user to logout of the site.
 
 */
@@ -18,7 +17,6 @@ class page_output
 		// nothing todo
 		return 1;
 	}
-
 	
 	function execute()
 	{
@@ -26,20 +24,18 @@ class page_output
 		return 1;
 	}
 
-
 	function render_html()
 	{
 		/////////////////////////
-	
+
 		print "<h3>USER LOGOUT:</h3>";
 		print "<p>Click below to logout. Remember: You must never leave a logged in session unattended!</p>";
-	
 		print "<form method=\"POST\" action=\"user/logout-process.php\">
 		<input type=\"submit\" value=\"Logout\">
 		</form>";
+
 		/////////////////////////
 	}
 }
-
 
 ?>

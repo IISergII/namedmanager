@@ -1,15 +1,12 @@
 <?php
 /*
 	user/users.php
-
 	Administrator-only utility to create, edit or delete user accounts.
 */
-
 
 class page_output
 {
 	var $obj_table;
-
 
 	function check_permissions()
 	{
@@ -33,7 +30,6 @@ class page_output
 		return 1;
 	}
 
-
 	function execute()
 	{
 		// establish a new table object
@@ -50,8 +46,8 @@ class page_output
 		$this->obj_table->add_column("standard", "lastlogin_ipaddress", "ipaddress");
 
 		// defaults
-		$this->obj_table->columns		= array("username", "realname", "contact_email", "lastlogin_time");
-		$this->obj_table->columns_order		= array("username");
+		$this->obj_table->columns				= array("username", "realname", "contact_email", "lastlogin_time");
+		$this->obj_table->columns_order			= array("username");
 		$this->obj_table->columns_order_options	= array("username", "realname", "contact_email", "lastlogin_time", "lastlogin_ipaddress");
 
 		// define SQL structure
@@ -59,24 +55,19 @@ class page_output
 		$this->obj_table->sql_obj->prepare_sql_addfield("id", "");
 
 		// acceptable filter options
-		$structure = NULL;
+		$structure 				= NULL;
 		$structure["fieldname"] = "searchbox";
-		$structure["type"]	= "input";
-		$structure["sql"]	= "username LIKE '%value%' OR realname LIKE '%value%' OR contact_email LIKE '%value%'";
+		$structure["type"]		= "input";
+		$structure["sql"]		= "username LIKE '%value%' OR realname LIKE '%value%' OR contact_email LIKE '%value%'";
 		$this->obj_table->add_filter($structure);
-
 
 		// load options
 		$this->obj_table->load_options_form();
 
-
-
 		// fetch all the user information
 		$this->obj_table->generate_sql();
 		$this->obj_table->load_data_sql();
-
 	}
-
 
 	function render_html()
 	{
@@ -104,27 +95,24 @@ class page_output
 			$this->obj_table->add_link("tbl_lnk_details", "user/user-view.php", $structure);
 
 			// permissions
-			$structure = NULL;
+			$structure					= NULL;
 			$structure["id"]["column"]	= "id";
 			$this->obj_table->add_link("tbl_lnk_permissions", "user/user-permissions.php", $structure);
 
 			// delete link
-			$structure = NULL;
+			$structure 					= NULL;
 			$structure["id"]["column"]	= "id";
 			$this->obj_table->add_link("tbl_lnk_delete", "user/user-delete.php", $structure);
-
 
 			// display the table
 			$this->obj_table->render_table_html();
 
 		}
 
-
 		// add users
 		print "<p><a class=\"button\" href=\"index.php?page=user/user-add.php\">Create a new User Account</a></p>";
 	}
 
 }
-
 
 ?>
