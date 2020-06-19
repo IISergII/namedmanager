@@ -1416,12 +1416,7 @@ class domain_records extends domain {
                 $data_tmp[$i]["id"] = security_script_input_predefined("int", $data_orig[$i]["id"], 1);
                 $data_tmp[$i]["type"] = security_script_input_predefined("any", $data_orig[$i]["type"], 1);
                 $data_tmp[$i]["ttl"] = security_script_input_predefined("int", $data_orig[$i]["ttl"], 1);
-
-//		Конвертация из/в punycode/IDN
-                $data_tmp[$i]["name"] = stripslashes($data_orig[$i]["name"]);
-                $data_tmp[$i]["name"] = (stripos($data_orig[$i]["name"], 'xn--') !== false) ? $data_tmp[$i]["name"] = idn_to_utf8(security_script_input_predefined("any", $data_orig[$i]["name"], 1)) : $data_tmp[$i]["name"] = idn_to_ascii(security_script_input_predefined("any", $data_orig[$i]["name"], 1));
-
-//                $data_tmp[$i]["name"] = security_script_input_predefined("any", $data_orig[$i]["name"], 1);
+                $data_tmp[$i]["name"] = security_script_input_predefined("any", $data_orig[$i]["name"], 1);
                 $data_tmp[$i]["prio"] = security_script_input_predefined("int", $data_orig[$i]["prio"], 0);
                 $data_tmp[$i]["content"] = security_script_input_predefined("any", $data_orig[$i]["content"], 1);
                 $data_tmp[$i]["reverse_ptr"] = security_script_input_predefined("checkbox", $data_orig[$i]["reverse_ptr"], 1);
@@ -1455,13 +1450,7 @@ class domain_records extends domain {
                 $data_tmp[$i]["id"] = security_form_input_predefined("int", "record_custom_" . $i . "_id", 0, "");
                 $data_tmp[$i]["type"] = security_form_input_predefined("any", "record_custom_" . $i . "_type", 0, "");
                 $data_tmp[$i]["ttl"] = security_form_input_predefined("int", "record_custom_" . $i . "_ttl", 0, "");
-
-//		Конвертация из/в punycode/IDN
-                $data_tmp[$i]["name"] = stripslashes($data_tmp[$i]["name"]);
-                $data_tmp[$i]["name"] = (stripos($data_tmp[$i]["name"], 'xn--') !== false) ? $data_tmp[$i]["name"] = idn_to_utf8(security_form_input_predefined("any", "record_custom_" . $i . "_name", 0, "")) : $data_tmp[$i]["name"] = idn_to_ascii(security_form_input_predefined("any", "record_custom_" . $i . "_name", 0, ""));
-
-//                $data_tmp[$i]["name"] = security_form_input_predefined("any", "record_custom_" . $i . "_name", 0, "");
-
+                $data_tmp[$i]["name"] = security_form_input_predefined("any", "record_custom_" . $i . "_name", 0, "");
                 $data_tmp[$i]["content"] = security_form_input_predefined("any", "record_custom_" . $i . "_content", 0, "");
                 $data_tmp[$i]["reverse_ptr"] = security_form_input_predefined("checkbox", "record_custom_" . $i . "_reverse_ptr", 0, "");
                 $data_tmp[$i]["reverse_ptr_orig"] = security_form_input_predefined("checkbox", "record_custom_" . $i . "_reverse_ptr_orig", 0, "");
