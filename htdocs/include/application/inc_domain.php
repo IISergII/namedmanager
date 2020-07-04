@@ -1521,14 +1521,13 @@ class domain_records extends domain {
 
                         case "CNAME":
                             // validate CNAME
-                            if ($data_tmp[$i]["content"] != "@" && !(filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_DOMAIN))) {
-//                          if ($data_tmp[$i]["content"] != "@" && !preg_match("/^[\\w\p{L}._-]*$/", $data_tmp[$i]["content"])) {
+                          if ($data_tmp[$i]["content"] != "@" && !(filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_DOMAIN)) && !(filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_IP)) ) {
                                 // invalid CNAME
                                 log_write("error", "process", "CNAME record for " . $data_tmp[$i]["name"] . " contains invalid characters.");
                                 error_flag_field("record_custom_" . $i . "");
                             }
                             // make sure it's not an IP
-                            if (filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_IP) == $data_tmp[$i]["content"]) {
+                            if (filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_IP) == FALSE && !(filter_var($data_tmp[$i]["content"], FILTER_VALIDATE_DOMAIN)) ) {
                                 // CNAME is pointing at an IP
                                 log_write("error", "process", "CNAME record for " . $data_tmp[$i]["name"] . " is incorrectly referencing an IP address.");
                                 error_flag_field("record_custom_" . $i . "");
